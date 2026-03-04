@@ -1,15 +1,204 @@
+/* ====== FUNDO ====== */
+body {
+    background: linear-gradient(135deg, #0f172a, #2d405e);
+    font-family: 'Segoe UI', Arial, sans-serif;
+    color: white;
+    margin: 0;
+    padding: 0;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* ====== TÍTULO ====== */
+.titulo-principal {
+    margin-top: 60px;
+    font-size: 2.6rem;
+    font-weight: 700;
+    background: linear-gradient(135deg, #60a5fa, #3b82f6);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    text-shadow: 0 2px 12px rgba(59, 130, 246, 0.4);
+    text-align: center;
+}
+
+/* ====== BOTÃO ABRIR ====== */
 .btn-abrir {
     background: linear-gradient(135deg, #1d4ed8, #3b82f6);
     color: white;
-    padding: 16px 40px;
+    padding: 18px 48px;
     border-radius: 12px;
     border: none;
     cursor: pointer;
     font-size: 18px;
     font-weight: 600;
     margin-top: 40px;
+    transition: all 0.3s ease;
+    box-shadow: 0 6px 20px rgba(59, 130, 246, 0.3);
 }
 
 .btn-abrir:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 30px rgba(59, 130, 246, 0.4);
+}
+
+/* ====== CONTAINER ====== */
+.container {
+    display: flex;
+    justify-content: center;
+    margin-top: 60px;
+    width: 100%;
+}
+
+/* ====== CARD ====== */
+.box {
+    background: rgba(255, 255, 255, 0.05);
+    padding: 45px 35px;
+    border-radius: 18px;
+    width: 420px;
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.35);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    transition: all 0.3s ease;
+}
+
+.box:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 20px 45px rgba(0, 0, 0, 0.45);
+}
+
+.box h2 {
+    margin-bottom: 30px;
+    font-size: 1.4rem;
+    color: #e2e8f0;
+    font-weight: 600;
+    padding-bottom: 15px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* ====== INPUT FILE ====== */
+.box input[type="file"] {
+    display: none;
+}
+
+/* ====== BOTÃO SELECIONAR ====== */
+.file-label {
+    display: inline-block;
+    background: linear-gradient(135deg, #1d4ed8, #3b82f6);
+    color: white;
+    padding: 14px 28px;
+    border-radius: 10px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    margin-bottom: 25px;
+    width: 100%;
+    text-align: center;
+    font-size: 16px;
+    box-shadow: 0 4px 15px rgba(59, 130, 246, 0.3);
+}
+
+.file-label:hover {
+    background: linear-gradient(135deg, #2563eb, #60a5fa);
     transform: translateY(-2px);
+}
+
+/* ====== BOTÃO DOWNLOAD ====== */
+.box button {
+    background: linear-gradient(135deg, #10b981, #34d399);
+    color: white;
+    padding: 16px 32px;
+    border-radius: 10px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    width: 100%;
+    border: none;
+    font-size: 16px;
+    letter-spacing: 0.5px;
+    box-shadow: 0 4px 15px rgba(16, 185, 129, 0.3);
+}
+
+.box button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(16, 185, 129, 0.4);
+}
+
+.box button:disabled {
+    background: linear-gradient(135deg, #6b7280, #9ca3af);
+    cursor: not-allowed;
+    box-shadow: none;
+}
+
+/* ====== INFORMAÇÃO DO ARQUIVO ====== */
+.arquivo-info {
+    margin: 15px 0;
+    font-size: 0.9rem;
+    color: #cbd5e1;
+    background: rgba(255, 255, 255, 0.05);
+    padding: 10px;
+    border-radius: 8px;
+    display: none;
+}
+
+.arquivo-info.mostrar {
+    display: block;
+}
+
+/* ====== STATUS ====== */
+.status {
+    margin-top: 20px;
+    padding: 12px;
+    border-radius: 8px;
+    font-size: 0.95rem;
+    font-weight: 600;
+    display: none;
+}
+
+.status.processo {
+    background: rgba(59, 130, 246, 0.2);
+    color: #93c5fd;
+    border: 1px solid rgba(59, 130, 246, 0.3);
+}
+
+.status.sucesso {
+    background: rgba(16, 185, 129, 0.2);
+    color: #a7f3d0;
+    border: 1px solid rgba(16, 185, 129, 0.3);
+}
+
+.status.erro {
+    background: rgba(239, 68, 68, 0.2);
+    color: #fca5a5;
+    border: 1px solid rgba(239, 68, 68, 0.3);
+}
+
+.status.mostrar {
+    display: block;
+}
+
+/* ====== LOADER ====== */
+.loader {
+    display: inline-block;
+    width: 18px;
+    height: 18px;
+    border: 3px solid rgba(255, 255, 255, 0.3);
+    border-top: 3px solid #3b82f6;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+    margin-right: 8px;
+}
+
+@keyframes spin {
+    to { transform: rotate(360deg); }
+}
+
+/* ====== RODAPÉ ====== */
+.rodape {
+    margin-top: auto;
+    margin-bottom: 20px;
+    color: #9ca3af;
+    font-size: 0.9rem;
+    opacity: 0.8;
 }
