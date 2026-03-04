@@ -22,34 +22,45 @@ def wake():
 # ====== PROCESSAR SPED ======
 @app.post("/processar")
 async def processar_sped(file: UploadFile = File(...)):
-    conteudo = await file.read()
-    linhas = conteudo.decode("utf-8").splitlines()
 
-    resultado = []
-    codigos_c110 = set()
+    async def processar_linhas():
+        codigos_c110 = set()
+        c100_ativo = False
 
-    for linha in linhas:
+        while True:
+            linha_bytes = await file.readline()
+            if not linha_bytes:
+                break
 
-        if linha.startswith("|C100|"):
-            codigos_c110.clear()
-            resultado.append(linha)
+            try:
+                linha = linha_bytes.decode("utf-8").strip()
+            except:
+                linha = linha_bytes.decode("latin-1").strip()
 
-        elif linha.startswith("|C110|"):
-            partes = linha.split("|")
-            codigo = partes[2]
+            if linha.startswith("|C100|"):
+                codigos_c110.clear()
+                c100_ativo = True
+                yield linha + "\n"
 
-            if codigo not in codigos_c110:
-                codigos_c110.add(codigo)
-                resultado.append(linha)
+            elif linha.startswith("|C110|") and c100_ativo:
+                partes = linha.split("|")
 
-        else:
-            resultado.append(linha)
+                if len(partes) > 2:
+                    codigo = partes[2]
 
-    arquivo_final = "\n".join(resultado)
-    buffer = io.BytesIO(arquivo_final.encode("utf-8"))
+                    if codigo not in codigos_c110:
+                        codigos_c110.add(codigo)
+                        yield linha + "\n"
+                else:
+                    yield linha + "\n"
+
+            else:
+                yield linha + "\n"
 
     return StreamingResponse(
-        buffer,
+        processar_linhas(),
         media_type="text/plain",
-        headers={"Content-Disposition": "attachment; filename=- CORRIGIDO.txt"}
+        headers={
+            "Content-Disposition": "attachment; filename=SPED_TRATADO.txt"
+        }
     )
