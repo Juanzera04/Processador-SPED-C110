@@ -51,5 +51,5 @@ async def processar_sped(file: UploadFile = File(...)):
     return StreamingResponse(
         buffer,
         media_type="text/plain",
-        headers={"Content-Disposition": "attachment; filename=SPED_TRATADO.txt"}
+        headers={"Content-Disposition": "attachment; filename=- CORRIGIDO.txt"}
     )

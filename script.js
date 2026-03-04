@@ -1,4 +1,4 @@
-const URL_BACKEND = "https://SEU_BACKEND.onrender.com";
+const URL_BACKEND = "https://processador-sped-c110.onrender.com";
 
 const btnAbrir = document.getElementById("btnAbrir");
 const loadingInicial = document.getElementById("loadingInicial");
