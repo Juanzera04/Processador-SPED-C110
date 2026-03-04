@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Ferramenta de ajuste de SPED - Campo C110</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <h1 class="titulo-principal">
+        Ferramenta de ajuste de SPED - Campo C110
+    </h1>
+
+    <div id="inicial">
+        <button id="btnAbrir" class="btn-abrir">Abrir</button>
+
+        <div id="loadingInicial" class="status processo">
+            <span class="loader"></span>
+            Iniciando sistema...
+        </div>
+    </div>
+
+    <div class="container" id="appContainer" style="display:none;">
+
+        <div class="box">
+            <h2>Processar Arquivo SPED</h2>
+
+            <label for="fileInput" class="file-label">
+                Selecionar arquivo
+            </label>
+            <input type="file" id="fileInput" accept=".txt">
+
+            <div id="arquivoInfo" class="arquivo-info"></div>
+
+            <button id="btnDownload" disabled>
+                Baixar arquivo processado
+            </button>
+
+            <div id="statusProcessamento" class="status"></div>
+        </div>
+
+    </div>
+
+    <div class="rodape">
+        © 2026 - Ferramenta SPED
+    </div>
+
+<script src="script.js"></script>
+</body>
+</html>
