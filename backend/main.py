@@ -1,59 +1,55 @@
 from fastapi import FastAPI, UploadFile, File
-from fastapi.responses import StreamingResponse
 from fastapi.middleware.cors import CORSMiddleware
-import io
+from fastapi.responses import StreamingResponse
 
 app = FastAPI()
 
-# Libera CORS para frontend do GitHub
+# 🔓 Libera CORS para seu frontend no GitHub Pages
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],
+    allow_origins=["https://juanzera04.github.io"],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
 )
 
-# ====== WAKE (1+1) ======
-@app.get("/wake")
-def wake():
-    return {"resultado": 1 + 1}
+@app.get("/")
+def home():
+    return {"status": "API rodando normalmente 🚀"}
 
-# ====== PROCESSAR SPED ======
+
 @app.post("/processar")
 async def processar_sped(file: UploadFile = File(...)):
 
-    async def processar_linhas():
+    def processar_linhas():
         codigos_c110 = set()
-        c100_ativo = False
 
-        while True:
-            linha_bytes = await file.readline()
-            if not linha_bytes:
-                break
-
+        for linha_bytes in file.file:
             try:
                 linha = linha_bytes.decode("utf-8").strip()
             except:
                 linha = linha_bytes.decode("latin-1").strip()
 
+            # Novo bloco de nota
             if linha.startswith("|C100|"):
                 codigos_c110.clear()
-                c100_ativo = True
                 yield linha + "\n"
 
-            elif linha.startswith("|C110|") and c100_ativo:
+            # Registro C110
+            elif linha.startswith("|C110|"):
                 partes = linha.split("|")
 
                 if len(partes) > 2:
                     codigo = partes[2]
 
+                    # Evita C110 duplicado dentro da mesma nota
                     if codigo not in codigos_c110:
                         codigos_c110.add(codigo)
                         yield linha + "\n"
                 else:
                     yield linha + "\n"
 
+            # Qualquer outra linha passa direto
             else:
                 yield linha + "\n"
 
