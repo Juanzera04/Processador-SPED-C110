@@ -7,7 +7,10 @@ app = FastAPI()
 # 🔓 Libera CORS para seu frontend no GitHub Pages
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["https://juanzera04.github.io"],
+    allow_origins=[
+        "https://juanzera04.github.io",
+        "https://processador-sped-c110-39b9.onrender.com",
+    ],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
